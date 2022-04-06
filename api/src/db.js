@@ -39,7 +39,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { Character, Occupation } = sequelize.models;
 Occupation.belongsToMany(Character, { through: "character_occupation" }); //una ocupacion de mi tabla de ocupaciones pertenece a muchos personajes
-Character.belongsToMany(Occupation, { through: "character_occupation" });
+Character.belongsToMany(Occupation, { through: "character_occupation" });//una persona de mi tabla de personajes pertenece a muchas ocupaciones
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 

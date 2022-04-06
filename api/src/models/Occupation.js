@@ -8,4 +8,4 @@ module.exports = (sequelize) => {
     },
   });
 };
-// no le vamos a pasasr el idpor que en este caso no vamos a tener otro tipo de ocupacion salvo los que tenemos en base de datos
+// no le vamos a pasasr el id por que en este caso no vamos a tener otro tipo de ocupacion salvo los que tenemos en base de datos
