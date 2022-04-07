@@ -42,7 +42,7 @@ const getDbInfo = async () => {
     },
   });
 };
-const getAllCharacter = async () => {
+const getCharacters = async () => {
   const apiInfo = await getApiInfo();
   const dbInfo = await getDbInfo();
   const infoTotal = apiInfo.concat(dbInfo);
@@ -51,7 +51,7 @@ const getAllCharacter = async () => {
 
 const getAllCharacters = async (req, res) => {
   const name = req.query.name; //pregunta si hay hay un query con esta propiedad name
-  let charactersTotal = await getAllCharacter();
+  let charactersTotal = await getCharacters();
   if (name) {
     let characterName = charactersTotal.filter((el) =>
       el.name.toLowerCase().includes(name.toLowerCase())
