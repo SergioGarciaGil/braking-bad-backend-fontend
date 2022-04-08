@@ -1,22 +1,27 @@
 const { Character, Occupation } = require("../db");
 
 const createCharacter = async (req, res) => {
-  const { name, nickname, birthday, image, status, createInDb, occupation } =
-    req.body;
-  const characterCreate = await Character.create({
-    name,
-    nickname,
-    birthday,
-    image,
-    status,
-    createInDb,
-  });
-  const occupationDb = await Occupation.findAll({
-    //dentro de este modelo encontrar todas las ocupaciones que coincidan por body
-    where: { name: occupation },
-  });
-  characterCreate.addOccupation(occupationDb); //me trae de la tabla esto que le paso
-  res.send("Personaje creado con éxito");
+  try {
+    const { name, nickName, birthday, image, status, createInDb, occupations } =
+      req.body;
+    const characterCreate = await Character.create({
+      name,
+      nickName,
+      birthday,
+      image,
+      status,
+      createInDb,
+    });
+    const occupationDb = await Occupation.findAll({
+      //dentro de este modelo encontrar todas las ocupaciones que coincidan por body
+      where: { name: occupations },
+    });
+    characterCreate.addOccupation(occupationDb);
+    //me trae de la tabla esto que le paso
+    res.status(200).send("Personaje creado con éxito");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error al crear el personaje");
+  }
 };
-
 module.exports = createCharacter;
