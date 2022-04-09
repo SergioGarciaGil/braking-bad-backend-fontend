@@ -1,6 +1,5 @@
 const { Router } = require("express");
-const { Character, Occupation } = require("../db");
-const axios = require("axios");
+const getTotal = require("../Controllers/Services/getTotal");
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -9,45 +8,6 @@ const axios = require("axios");
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-
-const getApiInfo = async () => {
-  const apiUrl = await axios.get(
-    "https://www.breakingbadapi.com/api/characters"
-  );
-  const apiInfo = apiUrl.data.map((el) => {
-    //me va atraer la informacion de la api
-    return {
-      name: el.name,
-      imagen: el.img,
-      nickname: el.nickname,
-      status: el.status,
-      id: el.char_id,
-      occupation: el.occupation,
-      birthday: el.birthday,
-      appearance: el.appearance.map((el) => el),
-    };
-  });
-  return apiInfo;
-};
-const getDbInfo = async () => {
-  //me va atraer la informacion de la base de datos
-  return await Character.findAll({
-    //le pido que me tariga todos los personajes y ademas me incluya el modelo de ocupacion
-    include: {
-      model: Occupation,
-      atributes: ["name"], // traemos atributo de la tabla occupation
-      through: {
-        atributes: [],
-      },
-    },
-  });
-};
-const getTotal = async () => {
-  const apiInfo = await getApiInfo();
-  const dbInfo = await getDbInfo();
-  const infoTotal = apiInfo.concat(dbInfo);
-  return infoTotal;
-};
 
 const getAllCharacters = async (req, res) => {
   const name = req.query.name; //pregunta si hay hay un query con esta propiedad name
