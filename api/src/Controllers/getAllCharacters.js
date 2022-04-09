@@ -1,7 +1,7 @@
 const { Router } = require("express");
-
-const axios = require("axios");
 const { Character, Occupation } = require("../db");
+const axios = require("axios");
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -42,7 +42,7 @@ const getDbInfo = async () => {
     },
   });
 };
-const getCharacters = async () => {
+const getTotal = async () => {
   const apiInfo = await getApiInfo();
   const dbInfo = await getDbInfo();
   const infoTotal = apiInfo.concat(dbInfo);
@@ -51,9 +51,9 @@ const getCharacters = async () => {
 
 const getAllCharacters = async (req, res) => {
   const name = req.query.name; //pregunta si hay hay un query con esta propiedad name
-  let charactersTotal = await getCharacters();
+  const charactersTotal = await getTotal();
   if (name) {
-    let characterName = charactersTotal.filter((el) =>
+    const characterName = charactersTotal.filter((el) =>
       el.name.toLowerCase().includes(name.toLowerCase())
     );
     characterName.length //encontrate algo?

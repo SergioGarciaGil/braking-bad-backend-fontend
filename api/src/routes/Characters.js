@@ -7,6 +7,6 @@ const getById = require("../Controllers/getById");
 
 router.get("/", getAllCharacters);
 router.post("/", createCharacter);
-// router.get("/:id", getById);
+router.get("/:id", getById);
 
 module.exports = router;
