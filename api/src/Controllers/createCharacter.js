@@ -2,15 +2,15 @@ const { Character, Occupation } = require("../db");
 
 const createCharacter = async (req, res) => {
   try {
-    const { name, nickName, birthday, image, status, createInDb, occupations } =
+    let { name, nickName, birthday, image, occupations, createInDb, status } =
       req.body;
     const characterCreate = await Character.create({
       name,
       nickName,
       birthday,
       image,
+      // createInDb,
       status,
-      createInDb,
     });
     const occupationDb = await Occupation.findAll({
       //dentro de este modelo encontrar todas las ocupaciones que coincidan por body
@@ -21,7 +21,7 @@ const createCharacter = async (req, res) => {
     res.status(200).send("Personaje creado con éxito");
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error al crear el personaje");
+    res.status(404).send("Error al crear el personaje");
   }
 };
 module.exports = createCharacter;
